@@ -1,19 +1,12 @@
 pipeline {
-  agent {
-    kubernetes {
-      label 'nodejs-app-pod-2'
-      yamlFile 'nodejs-pod.yaml'
-    }
-  }
+  agent none
   options { 
     buildDiscarder(logRotator(numToKeepStr: '2'))
     skipDefaultCheckout true
   }
-   triggers {
-    eventTrigger simpleMatch('hello-api-deploy-event')
-  }
   stages {
     stage('Test') {
+      agent { label 'nodejs-app' }
       steps {
         checkout scm
         container('nodejs') {
@@ -41,11 +34,11 @@ pipeline {
       }
       input {
         message "Should we deploy?"
-        submitter "beedemo-ops"
-        submitterParameter "trey"
+        submitter "trey"
+        submitterParameter "APPROVER"
       }
       steps {
-        echo "Continuing with deployment"
+        echo "Continuing with deployment - approved by ${APPROVER}"
       }
     }
   }

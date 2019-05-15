@@ -31,10 +31,13 @@ pipeline {
         echo "TODO - build and push image"
       }
     }
-        stage('Deploy') {
+    stage('Deploy') {
       when {
         beforeAgent true
         branch 'master'
+      }
+      options {
+        timeout(time: 30, unit: 'SECONDS') 
       }
       input {
         message "Should we continue?"

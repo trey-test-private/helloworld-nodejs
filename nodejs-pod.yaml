@@ -1,10 +1,10 @@
 kind: Pod
 metadata:
-  name: nodejs-app
+  name: nodejs-app-2
 spec:
   containers:
   - name: nodejs
-    image: node:10.10.1-alpine
+    image: node:10.10.0-alpine
     command:
     - cat
     tty: true

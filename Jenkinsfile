@@ -1,9 +1,5 @@
 pipeline {
   agent { label 'nodejs-app' }
-  options { 
-    buildDiscarder(logRotator(numToKeepStr: '2'))
-    skipDefaultCheckout true
-  }
   stages {
    stage('Test') {
       agent { label 'nodejs-app' }
